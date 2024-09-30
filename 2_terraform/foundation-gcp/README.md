@@ -179,3 +179,5 @@ Terraform will perform the following actions:
 
 Plan: 5 to add, 0 to change, 0 to destroy.
 ```
+
+Pour lancer plusieurs instances d'une même ressource, il faut utiliser l'argument `count`.

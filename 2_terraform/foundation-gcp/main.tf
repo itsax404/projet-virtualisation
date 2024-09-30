@@ -20,6 +20,7 @@ resource "google_compute_network" "vpc_network" {
 resource "google_compute_instance" "default" {
   name = "server"
   machine_type = "e2.micro"
+  // count = 5
   zone= var.region
 
   boot_disk {
@@ -44,17 +45,15 @@ resource "google_sql_database_instance" "main" {
   }
 }
 
-resource "google_dns_record_set" "server" {
-  name = "server.${google_dns_managed_zone.prod.dns_name}"
-  type = "A"
-  ttl  = 300
-
-  managed_zone = google_dns_managed_zone.prod.name
-
-  rrdatas = [google_compute_instance.default.network_interface[0].access_config[0].nat_ip]
+resource "google_dns_record_set" "dns-record" {
+	name = google_dns_managed_zone.esirem-zone.name
+	type = "A"
+	managed_zone = google_dns_managed_zone.esirem-zone
+	rrdatas = [google_compute_instance.default.network_interface[0].access_config[0].nat_ip]
 }
 
-resource "google_dns_managed_zone" "prod" {
-  name     = "prod-zone"
-  dns_name = "server.esirem.fr."
+resource "google_dns_managed_zone" "esirem-zone" {
+  name        = "esirem-zone"
+  dns_name    = "server.esirem.fr."
+  description = "Example DNS zone"
 }
