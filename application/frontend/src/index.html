@@ -3,39 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href=".\output.css" rel="stylesheet">
+        <link href="output.css" rel="stylesheet">
     </head>
     <body>
-        <h1 class="text-3xl font-bold underline">
-            Hello world!
-        </h1>
+        <div class="display" id="display">0</div>
 
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-4 gap-2 p-4">
+            <button class="btn btn-white" data-value="AC">AC</button>
+            <button class="btn btn-white" data-value="C">C</button>
+            <button class="btn btn-white" data-value="">%</button>
+            <button class="btn btn-orange" data-value="/">÷</button>
 
-            <button class="btn btn-white">AC</button>
-            <button class="btn btn-white">C</button>
-            <button class="btn btn-white"></button>
-            <button class="btn btn-white">&div;</button>
+            <button class="btn btn-gray" data-value="7">7</button>
+            <button class="btn btn-gray" data-value="8">8</button>
+            <button class="btn btn-gray" data-value="9">9</button>
+            <button class="btn btn-orange" data-value="*">×</button>
 
-            <button class="btn btn-white">7</button>
-            <button class="btn btn-white">8</button>
-            <button class="btn btn-white">9</button>
-            <button class="btn btn-white">X</button>
-            
-            <button class="btn btn-white">4</button>
-            <button class="btn btn-white">5</button>
-            <button class="btn btn-white">6</button>
-            <button class="btn btn-white">-</button>
-            
-            <button class="btn btn-white">1</button>
-            <button class="btn btn-white">2</button>
-            <button class="btn btn-white">3</button>
-            <button class="btn btn-white">+</button>
-            
-            <button class="btn btn-white">&#xb1;</button>
-            <button class="btn btn-white">+</button>
-            <button class="btn btn-white">,</button>
-            <button class="btn btn-white">=</button>
+            <button class="btn btn-gray" data-value="4">4</button>
+            <button class="btn btn-gray" data-value="5">5</button>
+            <button class="btn btn-gray" data-value="6">6</button>
+            <button class="btn btn-orange" data-value="-">−</button>
+
+            <button class="btn btn-gray" data-value="1">1</button>
+            <button class="btn btn-gray" data-value="2">2</button>
+            <button class="btn btn-gray" data-value="3">3</button>
+            <button class="btn btn-orange" data-value="+">+</button>
+
+            <button class="btn btn-gray btn-large" data-value="0">0</button>
+            <button class="btn btn-gray" data-value=".">.</button>
+            <button class="btn btn-orange" data-value="=">=</button>
         </div>
+
+        <script src="script.js"></script>
     </body>
 </html>
