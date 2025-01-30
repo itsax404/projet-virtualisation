@@ -1,11 +1,29 @@
 services:
+
     redis:
+        container_name: redis-db
         image: "redis/redis-stack:latest"
         ports:
             - '6379:6379'
             - '8001:8001'
+
     rabbitmq:
-        image: "rabbitmq:4-management"
+        container_name: rabbit-db
+        build: ./rabbitmq
         ports:
             - '5672:5672'
-            - '15672:15672'
+            - '15672:15672'                
+
+    consumer:
+        container_name: consumer
+        build: ./consumer
+
+    backend:
+        container_name: backend
+        build: ./backend
+        ports:
+            - '5000:5000'
+
+networks:
+  application_net:
+    driver: bridge

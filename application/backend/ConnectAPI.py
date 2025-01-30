@@ -2,29 +2,35 @@ from flask import Flask, request, jsonify
 import uuid
 import redis
 import pika
+import waitress
+import time
 
 
 app = Flask("myCalculatrice")
-redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+redis_client = redis.Redis(host='redis-db', port=6379, db=0, decode_responses=True)
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = None
+while True:
+    try: 
+        connection = pika.BlockingConnection(pika.ConnectionParameters('rabbit-db'))
+        break
+    except Exception as e:
+        time.sleep(10)
+
+
 channel = connection.channel()
 channel.queue_declare(queue='calcul')
 
 # Préfixe des routes
-API_PREFIX = "/api/v1/myCalculatrice"
+API_PREFIX = "/api/v1/"
 
 @app.route(API_PREFIX+"/calculate", methods=["POST"])
 def calculate():
     """
     Forme de data attendu : {"calcul": "a+b*c/d-e*f etc..."}
     """
-    try: 
-        connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-        channel = connection.channel()
-        channel.queue_declare(queue='calcul')
-    except Exception as e:
-        return jsonify({"error": f"An error occurred while evaluating the expression: {str(e)}"}), 500
+    channel = connection.channel()
+    channel.queue_declare(queue='calcul')
 
     data = request.get_json()
 
@@ -43,11 +49,9 @@ def calculate():
     operation_id = str(uuid.uuid4())
 
     try:
-        channel.basic_publish(exchange='', routing_key='calcul', body=calcul)
+        channel.basic_publish(exchange='', routing_key='calcul', body=f"{operation_id}@{calcul}")
     except Exception as e:
         return jsonify({"error": f"An error occurred while evaluating the expression: {str(e)}"}), 500
-
-    connection.close()
 
     return jsonify({"operation_id": operation_id}), 201
 
@@ -64,3 +68,4 @@ def get_result(operation_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+    #waitress.serve(app, host="0.0.0.0", port=5000)
