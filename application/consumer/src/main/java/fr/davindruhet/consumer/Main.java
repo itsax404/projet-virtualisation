@@ -15,8 +15,8 @@ public class Main {
     public static void main(String[] args){
 
         logger.info("Importation de la configuration");
-        //Properties prop = ConfigImporter.loadYaml("config.yaml");
-        Properties prop = ConfigImporter.loadYaml("config-test.yaml");
+        Properties prop = ConfigImporter.loadYaml("config.yaml");
+        //Properties prop = ConfigImporter.loadYaml("config-test.yaml");
 
         if(prop == null){
             return;

@@ -4,21 +4,33 @@ import redis
 import pika
 import waitress
 import time
+import logging
+
+#rabbit_address = "rabbit-db"
+#redis_address = "reddit-db"
+rabbit_address = "localhost"
+redis_address = "localhost"
 
 
 app = Flask("myCalculatrice")
-redis_client = redis.Redis(host='redis-db', port=6379, db=0, decode_responses=True)
+logging.info("Connexion à la base de données Redis")
+redis_client = redis.Redis(host=redis_address, port=6379, db=0, decode_responses=True)
 
+logging.info("Tentative de connexion au RabbitMQ")
+i = 1
 connection = None
 while True:
     try: 
-        connection = pika.BlockingConnection(pika.ConnectionParameters('rabbit-db'))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(rabbit_address))
         break
     except Exception as e:
-        time.sleep(10)
+        logging.warning(f"Tentative de connexion au RabbitMQ n°{i} ratée")
+        i+=1
+        time.sleep(5)
 
-
+logging.info("Connexion au RabbitMQ")
 channel = connection.channel()
+logging.info("Déclaration de la queue")
 channel.queue_declare(queue='calcul')
 
 # Préfixe des routes
@@ -29,9 +41,6 @@ def calculate():
     """
     Forme de data attendu : {"calcul": "a+b*c/d-e*f etc..."}
     """
-    channel = connection.channel()
-    channel.queue_declare(queue='calcul')
-
     data = request.get_json()
 
     calcul = data.get("calcul")
@@ -42,9 +51,7 @@ def calculate():
     allowed_chars = "0123456789+-*/(). "
     if any(char not in allowed_chars for char in calcul):
         return jsonify({"error": "Expression contains invalid characters."}), 400
-
-
-
+    
     # Générer un ID unique pour le calcul
     operation_id = str(uuid.uuid4())
 
@@ -67,5 +74,5 @@ def get_result(operation_id):
     return jsonify({"operation_id": operation_id, "result": str(result)}), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-    #waitress.serve(app, host="0.0.0.0", port=5000)
+    #app.run(host="0.0.0.0", port=5000, debug=True)
+    waitress.serve(app, host="0.0.0.0", port=5000)
