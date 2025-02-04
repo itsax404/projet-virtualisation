@@ -77,8 +77,8 @@ resource "scaleway_rdb_instance" "db-instance-prod" {
     node_type      = "DB-DEV-S"
     engine         = "PostgreSQL-15"
     is_ha_cluster  = true
-    user_name      = "admin"
-    password       = "thiZ_is_v&ry_s3cret1"
+    user_name      = var.database_user_prod
+    password       = var.database_password_prod
     encryption_at_rest = true
     private_network {
         pn_id = scaleway_vpc.vpc.id
@@ -86,7 +86,7 @@ resource "scaleway_rdb_instance" "db-instance-prod" {
 }
 
 resource "scaleway_rdb_database" "db-database-prod" {
-  instance_id    = scaleway_rdb_instance.db-instance-prod
+  instance_id    = scaleway_rdb_instance.db-instance-prod.id
   name           = "database"
 }
 
@@ -95,8 +95,8 @@ resource "scaleway_rdb_instance" "db-instance-dev" {
     node_type      = "DB-DEV-S"
     engine         = "PostgreSQL-15"
     is_ha_cluster  = true
-    user_name      = "admin"
-    password       = "thiZ_is_v&ry_s3cret2"
+    user_name      = var.database_user_dev
+    password       = var.database_password_dev
     encryption_at_rest = true
     private_network {
         pn_id = scaleway_vpc.vpc.id
@@ -104,8 +104,8 @@ resource "scaleway_rdb_instance" "db-instance-dev" {
 }
 
 resource "scaleway_rdb_database" "db-database-dev" {
-  instance_id    = scaleway_rdb_instance.db-instance-dev
-  name           = "database"
+  instance_id    = scaleway_rdb_instance.db-instance-dev.id
+  name           = var.database_name
 }
 
 resource "scaleway_registry_namespace" "calc-container-registry" {
