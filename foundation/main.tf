@@ -7,14 +7,8 @@ terraform{
     required_version = ">= 0.13"
 }
 
-provider "scaleway" {
-    zone = "fr-par-2"
-    region = "fr-par"
-}
-
 resource "scaleway_vpc" "vpc" {
     name = "calc-vpc"    
-    tags = ["demo", "terraform"]
 }
 
 resource "scaleway_k8s_cluster" "calc_cluster" {
@@ -30,6 +24,12 @@ resource "scaleway_k8s_pool" "calc_pool" {
     name       = "calc-pool"
     node_type  = "DEV1-M"
     size       = 1
+}
+
+resource "scaleway_instance_ip" "calc_public_ip_prod"{
+}
+
+resource "scaleway_instance_ip" "calc_public_ip_dev"{
 }
 
 resource "scaleway_lb" "calc_load_balancer_prod" {
@@ -48,12 +48,6 @@ resource "scaleway_lb" "calc_load_balancer_dev" {
     private_network {
       private_network_id = scaleway_vpc.vpc.id
     }
-}
-
-resource "scaleway_instance_ip" "calc_public_ip_prod"{
-}
-
-resource "scaleway_instance_ip" "calc_public_ip_dev"{
 }
 
 resource "scaleway_domain_record" "calc_dns_prod" {

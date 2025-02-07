@@ -4,7 +4,7 @@ import time
 from uuid import uuid4
 
 # Establish a connection to RabbitMQ server
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', port=8082))
 channel = connection.channel()
 
 # Declare the queue

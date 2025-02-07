@@ -1,6 +1,6 @@
 redis:
-  host: redis-db
+  host: 10.2.4.179
   port: 6379
 rabbitmq:
-  host: rabbit-db
+  host: 10.2.4.134
   queue_name: calcul

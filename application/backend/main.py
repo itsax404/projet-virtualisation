@@ -8,8 +8,8 @@ import logging
 
 #rabbit_address = "rabbit-db"
 #redis_address = "reddit-db"
-rabbit_address = "localhost"
-redis_address = "localhost"
+rabbit_address = "10.2.4.134"
+redis_address = "10.2.4.179"
 
 
 app = Flask("myCalculatrice")

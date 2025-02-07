@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels: 
+    app: redis
+    soft: redis
+  name: redis-replica
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: redis
+      soft: redis
+  template:
+    metadata:
+        labels:
+          app: redis
+          soft: redis
+    spec:
+      containers:
+      - image: redis:latest
+        name: redis-davdru
+        ports:
+          - containerPort: 6379
+        resources:
+          requests:
+            cpu: "4m"
+            memory: "32Mi"

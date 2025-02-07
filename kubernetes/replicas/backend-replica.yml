@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels: 
+    app: backend
+    soft: flask
+  name: backend-replica
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+      soft: flask
+  template:
+    metadata:
+        labels:
+          app: backend
+          soft: flask
+    spec:
+      containers:
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/backend-2024:davin-druhet
+        name: backend-davdru
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "4m"
+            memory: "32Mi"  

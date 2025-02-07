@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels: 
+    app: consumer
+    soft: java
+  name: consumer-replica
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: consumer
+      soft: java
+  template:
+    metadata:
+        labels:
+          app: consumer
+          soft: java
+    spec:
+      containers:
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/consumer-2024:davin-druhet
+        name: consumer-davdru
+        resources:
+          requests:
+            cpu: "4m"
+            memory: "32Mi"

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels: 
+    app: rabbit
+    soft: rabbitmq
+  name: rabbit-replica
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rabbit
+      soft: rabbitmq
+  template:
+    metadata:
+        labels:
+          app: rabbit
+          soft: rabbitmq
+    spec:
+      containers:
+      - image: rabbitmq:latest
+        name: rabbit-davdru
+        ports:
+          - containerPort: 5672
+        resources:
+          requests:
+            cpu: "4m"
+            memory: "32Mi"
