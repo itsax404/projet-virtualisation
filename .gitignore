@@ -1,5 +1,5 @@
 **/*.env
-**/*.yaml
+**/resources/**.yaml
 
 .vscode/*
 !.vscode/settings.json
@@ -133,3 +133,4 @@ terraform.rc
 .terraform.lock.hcl
 
 build.sh
+**.sh
