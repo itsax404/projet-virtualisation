@@ -13,7 +13,7 @@ function updateDisplay(value) {
 
 async function sendCalculation(calcul) {
     try {
-        const response = await fetch('http://localhost:5000/api/v1/myCalculatrice/calculate', {
+        const response = await fetch('http://localhost:5000/api/v1/calculate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ async function sendCalculation(calcul) {
 
 async function getResult(operationId) {
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/myCalculatrice/result/${operationId}`);
+        const response = await fetch(`http://localhost:5000/api/v1/result/${operationId}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -70,7 +70,7 @@ buttons.forEach(button => {
         } else if (['+', '-', '*', '/'].includes(value)) {
             if (currentInput) {
                 if (previousInput) {
-                    previousInput = currentInput;
+                    previousInput += currentInput;
                 } else {
                     previousInput = currentInput;
                 }

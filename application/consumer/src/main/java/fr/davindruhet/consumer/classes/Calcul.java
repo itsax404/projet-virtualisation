@@ -1,20 +1,10 @@
 package fr.davindruhet.consumer.classes;
 
-import com.rabbitmq.client.DeliverCallback;
-import fr.davindruhet.consumer.managers.MessageQueue;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.UnifiedJedis;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 public class Calcul {
 
@@ -26,7 +16,7 @@ public class Calcul {
         String calcul = parts[1];
 
 
-        logger.info("Réalisation du calcul : " + id);
+        logger.info("Réalisation du calcul : " + id + " | Calcul : " + calcul);
         double result = 0;
         Expression e = new ExpressionBuilder(calcul).build();
         result = e.evaluate();
