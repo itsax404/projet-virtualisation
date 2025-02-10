@@ -40,6 +40,7 @@ async function getResult(operationId) {
 
         if (response.ok) {
             updateDisplay(data.result);
+            previousInput=data.result
         } else {
             updateDisplay("Error: " + data.error);
         }
@@ -62,10 +63,12 @@ buttons.forEach(button => {
             updateDisplay(currentInput || '0');
         } else if (value === '=') {
             if (currentInput) {
-                sendCalculation(currentInput);
-                previousInput = currentInput;
-                currentInput = '';
-                operator = '';
+                if (previousInput){
+                    sendCalculation(currentInput+operator+previousInput);
+                    previousInput = currentInput;
+                    currentInput = '';
+                    operator = '';
+                }
             }
         } else if (['+', '-', '*', '/'].includes(value)) {
             if (currentInput) {
