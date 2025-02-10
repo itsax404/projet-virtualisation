@@ -1,14 +1,19 @@
 
 const display = document.getElementById('display');
+const historiqueDisplay=document.getElementById('historique')
 const buttons = document.querySelectorAll('button');
 
 
 let currentInput = ''; 
 let previousInput = ''; 
 let operator = ''; 
+let historique='';
 
 function updateDisplay(value) {
     display.textContent = value;
+}
+function updateHistorique(value){
+    historiqueDisplay.textContent = value;
 }
 
 async function sendCalculation(calcul) {
@@ -24,9 +29,19 @@ async function sendCalculation(calcul) {
         const data = await response.json();
         if (response.ok) {
             const operationId = data.operation_id;
-            await getResult(operationId);
+            try{
+                await getResult(operationId);
+            }
+            catch(error){
+                updateDisplay("Updating"+ error.message);
+                setTimeout(() => {
+                    getResult(operationId);
+                }, 3000);
+                
+            }
         } else {
             updateDisplay("Error: " + data.error);
+            
         }
     } catch (error) {
         updateDisplay("Network error: " + error.message);
@@ -64,8 +79,10 @@ buttons.forEach(button => {
         } else if (value === '=') {
             if (currentInput) {
                 if (previousInput){
-                    sendCalculation(currentInput+operator+previousInput);
-                    previousInput = currentInput;
+                    historique=previousInput+operator+currentInput;
+                    sendCalculation(historique);
+                    updateHistorique(historique);
+                    previousInput = '';
                     currentInput = '';
                     operator = '';
                 }
@@ -73,13 +90,14 @@ buttons.forEach(button => {
         } else if (['+', '-', '*', '/'].includes(value)) {
             if (currentInput) {
                 if (previousInput) {
-                    previousInput += currentInput;
+                    previousInput = previousInput+value+currentInput;
                 } else {
                     previousInput = currentInput;
                 }
                 currentInput = '';
             }
             operator = value;
+            updateHistorique(previousInput);
         } else {
             if (value === '.' && currentInput.includes('.')) return;
             currentInput += value;
