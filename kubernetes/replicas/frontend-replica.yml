@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels: 
+    app: frontend
+    soft: nginx
+  name: frontend-replica
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+      soft: nginx
+  template:
+    metadata:
+        labels:
+          app: frontend
+          soft: nginx
+    spec:
+      containers:
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/frontend-2024:davin-druhet
+        name: frontend-davdru
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "4m"
+            memory: "32Mi"  

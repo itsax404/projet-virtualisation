@@ -16,9 +16,11 @@ function updateHistorique(value){
     historiqueDisplay.textContent = value;
 }
 
+const host="10.2.7.105:5000";
+
 async function sendCalculation(calcul) {
     try {
-        const response = await fetch('http://localhost:5000/api/v1/calculate', {
+        const response = await fetch(`http://${host}/api/v1/calculate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,15 +35,13 @@ async function sendCalculation(calcul) {
                 await getResult(operationId);
             }
             catch(error){
-                updateDisplay("Updating"+ error.message);
-                setTimeout(() => {
-                    getResult(operationId);
-                }, 3000);
-                
+                updateDisplay("Error: " + data.error);                
             }
         } else {
-            updateDisplay("Error: " + data.error);
-            
+            updateDisplay("Updating"+ error.message);                
+            setTimeout(() => {
+                getResult(operationId);
+            }, 3000);            
         }
     } catch (error) {
         updateDisplay("Network error: " + error.message);
@@ -50,7 +50,7 @@ async function sendCalculation(calcul) {
 
 async function getResult(operationId) {
     try {
-        const response = await fetch(`http://localhost:5000/api/v1/result/${operationId}`);
+        const response = await fetch(`http://${host}/api/v1/result/${operationId}`);
         const data = await response.json();
 
         if (response.ok) {
