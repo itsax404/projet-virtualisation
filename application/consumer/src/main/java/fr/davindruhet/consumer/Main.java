@@ -17,10 +17,13 @@ public class Main {
         logger.info("Importation de la configuration");
         Properties prop = ConfigImporter.loadYaml("config.yaml");
         //Properties prop = ConfigImporter.loadYaml("config-test.yaml");
-
         if(prop == null){
             return;
         }
+        logger.info("Informations :");
+        logger.info("Redis host : " + prop.getProperty("redis.host"));
+        logger.info("Rabbit host : " + prop.getProperty("rabbitmq.host"));
+        logger.info("Rabbit queue name :" + prop.getProperty("rabbitmq.queue_name"));
 
         logger.info("Récupération des informations privées");
         String redisHost = prop.getProperty("redis.host");

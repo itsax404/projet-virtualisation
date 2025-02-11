@@ -5,33 +5,29 @@ import uuid
 import redis
 import pika
 import waitress
-import time
 import logging
 
-rabbit_address = "rabbit-db"
-redis_address = "redis-db"
-#rabbit_address = "10.2.4.134"
-#redis_address = "10.2.4.179"
-
+redis_host = "redis-service"
+rabbit_host = "rabbit-service"
 
 app = Flask("myCalculatrice")
-cors = CORS(app, resources={ r"/api/*": {"origins": "*"}})
+cors = CORS(app, resources={ r"/v1/*": {"origins": "*"}})
 
 logging.root.setLevel(level=logging.INFO)
 
 logging.info("Connexion à la base de données Redis")
-redis_client = redis.Redis(host=redis_address, port=6379, db=0, decode_responses=True)
+redis_client = redis.Redis(host=redis_host, port=6379, db=0, decode_responses=True)
 
 def connection_rabbit():
     logging.info("Tentative de connexion au RabbitMQ")
-    connection = pika.BlockingConnection(pika.ConnectionParameters(rabbit_address))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(rabbit_host))
     channel = connection.channel()
     logging.info("Déclaration de la queue")
     channel.queue_declare(queue='calcul')
     return channel
 
 # Préfixe des routes
-API_PREFIX = "/api/v1/"
+API_PREFIX = "/v1/"
 
 @app.route(API_PREFIX+"/calculate", methods=["POST"])
 def calculate():

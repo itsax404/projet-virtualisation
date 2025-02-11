@@ -16,7 +16,7 @@ function updateHistorique(value){
     historiqueDisplay.textContent = value;
 }
 
-const host="10.2.7.105:5000";
+const host = "backend-service";
 
 async function sendCalculation(calcul) {
     try {
