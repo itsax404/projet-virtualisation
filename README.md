@@ -1,8 +1,21 @@
-Projet (et mes TD) :
-- Joachim Druhet
-- Quentin Davin
+# Projet PolyCalculatrice
+
+Ce projet consiste à réaliser une calculatrice en micro-services : frontend, backend et un consumer, et avec l'utilisation de Redis et de RabbitMQ.  
+
+Voici le sujet du projet : [Sujet](https://github.com/JeromeMSD/module_virtualisation-et-cloud-computing/blob/main/projet.md)  
+
+Les membres du projet sont : 
+- **Joachim DRUHET**
+- **Quentin DAVIN**
+
+:warning: Nous avons eu des soucis avec Kubernetes.  
+Les images des containers ne se mettent pas à jour.  
+Les ReplicaSet se connectent bien entre eux, les règles Ingress fonctionnent bien, mais ils ont pas les correctifs de bugs ou les nouvelles fonctionnalités qu'on voulait. Cependant, le code des micro-services l'ont.  
+
 
 ## Output Terraform :
+
+Voici la sortie de la commande `terraform plan` comme demandé :
 
 ```
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:

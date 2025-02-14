@@ -19,8 +19,21 @@ public class Calcul {
         logger.info("Réalisation du calcul : " + id + " | Calcul : " + calcul);
         double result = 0;
         Expression e = new ExpressionBuilder(calcul).build();
-        result = e.evaluate();
-
+        try{
+            result = e.evaluate();
+        } catch(ArithmeticException error){
+            if(jedis != null){
+                if(error.getMessage().equals("Division by zero!")){
+                    jedis.set(id, "Erreur : Division par zéro");
+                }else{
+                    jedis.set(id, error.getMessage());
+                }
+                return;
+            }else{
+                logger.error("Erreur arithmétique : " + error.getMessage());
+                return;
+            }
+        }
 
         if (jedis != null) {
             logger.info("Ajout du calcul dans le Redis");
