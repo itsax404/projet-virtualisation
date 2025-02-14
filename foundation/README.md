@@ -25,7 +25,7 @@ graph LR
 
 ## Fichier `provider.tf`
 
-Dans ce fichier, on a défini le provider, ici **Scaleway** et la zone, ici `fr-par-2` (:flag_france:).  
+Dans ce fichier, on a défini le provider, ici **Scaleway** et la zone, ici `fr-par-2` (:fr:).  
 
 ## Fichier `variables.tf`
 
