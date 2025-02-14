@@ -7,8 +7,8 @@ Ce projet consiste à réaliser une calculatrice en micro-services : frontend, b
 Voici le sujet du projet : [Sujet](https://github.com/JeromeMSD/module_virtualisation-et-cloud-computing/blob/main/projet.md)  
 
 Les membres du projet sont : 
-- **Joachim DRUHET**
-- **Quentin DAVIN**
+- **Joachim DRUHET** (@jonitreak)
+- **Quentin DAVIN** (@itsax404)
 
 Nous avons appris beaucoup de choses sur ce projet (qu'on trouve plutôt bien fini).  
 Il a encore quelques soucis mais on a pas encore les compétences pour les résoudre.
