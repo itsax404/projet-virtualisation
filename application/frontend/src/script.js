@@ -17,10 +17,8 @@ function updateHistorique(value){
 }
 
 const host = "backend-service:5000";
-const host_test = "localhost:5000";
 
 async function calculate(value){
-    console.log("value : " + value);
     if (value === 'AC') {
         currentInput = '';
         previousInput = '';
@@ -60,7 +58,6 @@ async function calculate(value){
 
 async function sendCalculation(calcul) {
     try {
-        console.log("[sendCalculation] Requête POST");
         const response = await fetch(`http://${host_test}/v1/calculate`, {
             method: 'POST',
             headers: {
@@ -70,13 +67,9 @@ async function sendCalculation(calcul) {
         });
 
         const data = await response.json();
-        console.log("[sendCalculation] Réponse requête POST : " + data);
         if (response.ok) {
-            console.log("[sendCalculation] Réponse POST ok");
             const operationId = data.operation_id;
-            console.log("[sendCalculation] Réquete POST | id opération : " + operationId);
             try{
-                console.log("[sendCalculation] Réquete POST | appel getResult ");
                 await getResult(operationId);
             }
             catch(error){
@@ -90,7 +83,7 @@ async function sendCalculation(calcul) {
             }, 3000);            
         }
     } catch (error) {
-        console.log("[sendCalculation] Réquete POST | Erreur réseau : " + error.message);
+        console.error("[sendCalculation] Réquete POST | Erreur réseau : " + error.message);
         updateDisplay("Network error: " + error.message);
     }
 }
@@ -100,10 +93,7 @@ async function getResult(operationId) {
         const response = await fetch(`http://${host_test}/v1/result/${operationId}`);
         const data = await response.json();
 
-        console.log("[getResult] Réponse : "+ data);
-
         if (response.ok) {
-            console.log("[getResult] Réponse ok");
             updateDisplay(data.result);
             previousInput=data.result
         } else {
@@ -124,7 +114,6 @@ buttons.forEach(button => {
 });
 
 document.addEventListener("keydown", async function (e) {
-    console.log("input : " + e.key);
     switch (e.key) {
         case "0":
         case "1":
@@ -149,6 +138,11 @@ document.addEventListener("keydown", async function (e) {
         case "Backspace":   
             calculate("C");
             break;    
+        case "Escape":
+            calculate("AC");
+            break;
+        case "%":
+            break;
         default:
             return; // Do nothing for the rest
     }
