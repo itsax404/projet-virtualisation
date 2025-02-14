@@ -8,10 +8,10 @@ Dans cette partie, nous avons séparés les fichiers par type :
 ## Les RéplicaSet
 
 > [!WARNING]
-> On a des gros soucis avec l'actualisation des images.
-> On a beau pousser des nouvelles versions, elles se mettent pas à jour, empêchant de corriger des bugs, ou de tester les nouvelles fonctionnalités qu'on ajoute
-> Cependant, on a pu tester la connexion entre les micro-services et cela doit marcher.
-> (le frontend a une favicon dans la dernière version)
+> On a des gros soucis avec l'actualisation des images.  
+> On a beau pousser des nouvelles versions, elles se mettent pas à jour, empêchant de corriger des bugs, ou de tester les nouvelles fonctionnalités qu'on ajoute.  
+> Cependant, on a pu tester la connexion entre les micro-services et cela doit marcher.  
+> (le frontend a une favicon dans la dernière version)  
 
 On a cinq RéplicaSet :
 - `frontend-replica`
