@@ -18,7 +18,7 @@ spec:
           soft: nginx
     spec:
       containers:
-      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/frontend-2024:davin-druhet
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/frontend-2024:davin-druhet-v1.0.2
         name: frontend-davdru
         ports:
         - name: http
