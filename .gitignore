@@ -135,3 +135,5 @@ terraform.rc
 
 build.sh
 **.sh
+
+README.pdf
