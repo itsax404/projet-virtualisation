@@ -32,9 +32,10 @@ Ainsi, on a quatre services :
 - `rabbit-service`
 _le consumer n'a pas besoin d'adresse IP privé car il n'est pas appelé dans des requêtes_
 
-> [!INFO]
-> Après des jours de souffrance, on a découvert qu'on peut utiliser le nom des services comme IP
-> afin que les Pods récupèrent automatiquent l'IP (car les Service ont des IP dynamiques)
+> [!TIP]
+> Après des jours de souffrance avec des variables d'environnement, on a découvert qu'on peut
+> utiliser le nom des services comme IP afin que les Pods récupèrent automatiquent l'IP
+> (car les Service ont des IP dynamiques)
 
 ## Les règles Ingress
 
