@@ -60,7 +60,7 @@ Maintenant, voici un tableau des ressources et de leur utilité :
 |     `scaleway_rdb_instance`    |     `db-instance-dev`     |        Création de l'instance de la base de données de développement (ici on a mis PostgreSQL en version 15)        |
 | `scaleway_regisgtry_namespace` | `calc_container_registry` |                                          Création du registre de conteneurs                                         |
 
-_idée de tableau inspiré par le BG Arno BIDET_.  
+_idée de tableau inspiré par le BG Arno BIDET (@ArnoBIDET)_.  
 
 Maintenant, voici la sortie de Terraform : 
 
